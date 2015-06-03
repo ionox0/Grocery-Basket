@@ -11,7 +11,6 @@ module.exports = React.createClass({
     this.props.onItemRemove(this.props.data);
   },
   toggleInBasket: function(e) {
-    console.log('asdf');
     this.setState({ inBasket: !this.state.inBasket });
   },
   render: function() {

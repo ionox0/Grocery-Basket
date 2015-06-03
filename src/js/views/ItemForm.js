@@ -6,7 +6,7 @@ module.exports = React.createClass({
     var user = React.findDOMNode(this.refs.user).value.trim().toUpperCase();
     var type = React.findDOMNode(this.refs.item).value.trim();
     var quantity = parseInt(React.findDOMNode(this.refs.quantity).value.trim());
-    if (!type || !user || !quantity) { // NaN is a falsey value
+    if (!type || !user || !quantity) {
       return;
     }
     this.props.onItemSubmit({user: user, type: type, quantity: quantity});

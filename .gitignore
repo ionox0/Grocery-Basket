@@ -3,3 +3,5 @@ build/
 npm-debug.log
 .sass-cache/
 bower_components/
+server/basket.json
+server/auto-increment.json

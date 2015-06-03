@@ -11,7 +11,7 @@ var gulp = require('gulp'),
   cache = require('gulp-cache'),
   livereload = require('gulp-livereload'),
   del = require('del'),
-  source = require('vinyl-source-stream'), // Used to stream bundle for further handling
+  source = require('vinyl-source-stream'),
   browserify = require('browserify'),
   watchify = require('watchify'),
   reactify = require('reactify'),
@@ -24,14 +24,13 @@ gulp.task('clean', function(cb) {
 
 gulp.task('html', function() {
     gulp.src('./src/index.html')
-    // Perform minification tasks, etc here
     .pipe(gulp.dest('./build'));
 });
 
 gulp.task('browserify', function() {
   var bundler = browserify({
-    entries: ['./src/js/main.js'], // Only need initial file, browserify finds the deps
-    transform: [reactify], // We want to convert JSX to normal javascript
+    entries: ['./src/js/main.js'],
+    transform: [reactify], // Convert JSX to normal javascript
     debug: true, // Gives us sourcemapping
     cache: {}, packageCache: {}, fullPaths: true // Requirement of watchify
   });
@@ -43,7 +42,7 @@ gulp.task('browserify', function() {
     console.log('Updating!');
     watcher.bundle() // Create new bundle that uses the cache for high performance
     .pipe(source('main.js'))
-  // This is where you add uglifying etc.
+    // Add uglifying etc
     .pipe(gulp.dest('./build/'));
     console.log('Updated!', (Date.now() - updateStart) + 'ms');
   })
@@ -52,7 +51,6 @@ gulp.task('browserify', function() {
   .pipe(gulp.dest('./build/'));
 });
 
-// I added this so that you see how to run two watch tasks
 gulp.task('css', function () {
   gulp.watch('src/styles/**/*.css', function () {
     return gulp.src('styles/**/*.css')
@@ -110,11 +108,8 @@ gulp.task('copy', function() {
 });
 
 gulp.task('watch', function() {
-  // Watch .html files
   gulp.watch('src/**/*.html', ['html']);
-  // Watch .scss files
   gulp.watch('src/styles/**/*.scss', ['sass']);
-  // Watch .js files
   gulp.watch('src/scripts/**/*.js', ['scripts']);
 
   // Create LiveReload server
